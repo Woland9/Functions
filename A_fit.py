@@ -33,6 +33,7 @@ def a_freq_xy(f,PSDX,PSDY,lims):
     fx = f1 if f1>f2 else f2;
     fy = f1 if f1<f2 else f2;
     return(fx,fy);
+    
 def a_freq_z(f,PSD,lims):
     idxf01 = np.argmin(abs(f-lims[0]));
     idxf02 = np.argmin(abs(f-lims[1]));
@@ -43,9 +44,11 @@ def a_freq_z(f,PSD,lims):
 # Fit 1 peak
 def a_model1(v,x):
     return v['a0']*(v['f0']*v['g0'])**2/((v['f0']**2 - x**2)**2+v['g0']**2*x**2) + funBG(x/2/pi);
+    
 def a_fcn2min1(params, x, data):
     v = params.valuesdict()
     return a_model1(v,x) - data;
+    
 def a_fit1(f,PSD,f0,fcut,g0):
     wfit = 2*pi*f[np.argmin(abs(f-(f0-fcut))):np.argmin(abs(f-(f0+fcut)))];
     PSDfit = PSD[np.argmin(abs(f-(f0-fcut))):np.argmin(abs(f-(f0+fcut)))];
@@ -60,9 +63,11 @@ def a_fit1(f,PSD,f0,fcut,g0):
 # Fit 2 peaks
 def a_model2(v,x):
     return v['a0']*(v['f0']*v['g0'])**2/((v['f0']**2 - x**2)**2+v['g0']**2*x**2) + v['a1']*(v['f1']*v['g1'])**2/((v['f1']**2 - x**2)**2+v['g1']**2*x**2) + funBG(x/2/pi);
+    
 def a_fcn2min2(params, x, data):
     v = params.valuesdict()
     return a_model2(v,x) - data;
+    
 def a_fit2(f,PSD,f0,f1,fcut,g0):
     wfit = 2*pi*f[np.argmin(abs(f-(min(f0,f1)-fcut))):np.argmin(abs(f-(max(f0,f1)+fcut)))];
     PSDfit = PSD[np.argmin(abs(f-(min(f0,f1)-fcut))):np.argmin(abs(f-(max(f0,f1)+fcut)))];
@@ -81,9 +86,11 @@ def a_fit2(f,PSD,f0,f1,fcut,g0):
 def a_model2z(v,x):
     return (v['a0']*(v['f0']*v['g0'])**2/((v['f0']**2 - x**2)**2+v['g0']**2*x**2) + v['a1']*(v['f1']*v['g1'])**2/((v['f1']**2 - x**2)**2+v['g1']**2*x**2) + 
             v['azm']*(v['fzm']*v['gzm'])**2/((v['fzm']**2 - x**2)**2+v['gzm']**2*x**2) + v['azp']*(v['fzp']*v['gzp'])**2/((v['fzp']**2 - x**2)**2+v['gzp']**2*x**2) + funBG(x/2/pi));
+            
 def a_fcn2min2z(params, x, data):
     v = params.valuesdict()
     return a_model2z(v,x) - data;
+    
 def a_fit2z(f,PSD,f0,f1,fcut,g0):        
     wfit = 2*pi*f[np.argmin(abs(f-(min(f0,f1)-fcut))):np.argmin(abs(f-(max(f0,f1)+fcut)))];
     PSDfit = PSD[np.argmin(abs(f-(min(f0,f1)-fcut))):np.argmin(abs(f-(max(f0,f1)+fcut)))];
