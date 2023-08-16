@@ -1,3 +1,12 @@
+from numpy import *
+from scipy import constants as cst
+from scipy import integrate
+from scipy import optimize
+from scipy import signal
+from scipy import special
+from scipy import interpolate
+import lmfit
+
 # Frequency
 def a_freq_xy(f,PSDX,PSDY,lims):
     idxf01 = np.argmin(abs(f-lims[0]));
