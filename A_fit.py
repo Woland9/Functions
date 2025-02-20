@@ -7,7 +7,7 @@ from scipy import special
 from scipy import interpolate
 import lmfit
 
-print('ciaos')
+print('ciaod')
 
 # Frequency
 def a_freq_xy(f,PSDX,PSDY,lims):
