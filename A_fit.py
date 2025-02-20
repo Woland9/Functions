@@ -7,6 +7,8 @@ from scipy import special
 from scipy import interpolate
 import lmfit
 
+print('ciaos')
+
 # Frequency
 def a_freq_xy(f,PSDX,PSDY,lims):
     idxf01 = np.argmin(abs(f-lims[0]));
